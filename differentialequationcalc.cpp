@@ -42,3 +42,7 @@ void DifferentialEquationCalc::set_order(int n) const {
         break;
     }
 }
+
+void DifferentialEquationCalc::perform_computation() const {
+    Symbolic x("x");
+}

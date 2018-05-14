@@ -2,6 +2,7 @@
 #define DIFFERENTIALEQUATIONCALC_H
 
 #include <QMainWindow>
+#include "lib/headers/symbolicc++.h"
 
 namespace Ui {
 class DifferentialEquationCalc;
@@ -20,6 +21,7 @@ private:
 
 private slots:
     void set_order(int) const;
+    void preform_computation() const;
 };
 
 #endif // DIFFERENTIALEQUATIONCALC_H
