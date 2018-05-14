@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::DifferentialEquationCalc *ui;
+
+private slots:
+    void set_order(int) const;
 };
 
 #endif // DIFFERENTIALEQUATIONCALC_H
