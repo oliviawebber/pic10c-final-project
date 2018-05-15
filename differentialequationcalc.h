@@ -2,6 +2,8 @@
 #define DIFFERENTIALEQUATIONCALC_H
 
 #include <QMainWindow>
+#include <sstream>
+#include <string>
 #include "lib/headers/symbolicc++.h"
 
 namespace Ui {
@@ -21,7 +23,10 @@ private:
 
 private slots:
     void set_order(int) const;
-    void preform_computation() const;
+    void perform_computation() const;
+
+signals:
+    void computation_result(QString) const;
 };
 
 #endif // DIFFERENTIALEQUATIONCALC_H

@@ -27,13 +27,13 @@
      <string>Compute</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>221</width>
-      <height>21</height>
+      <height>24</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -58,7 +58,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -90,7 +90,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -143,7 +143,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -165,11 +165,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>320</y>
+      <y>350</y>
       <width>351</width>
       <height>101</height>
      </rect>
@@ -187,13 +187,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>250</y>
       <width>258</width>
-      <height>61</height>
+      <height>90</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -255,8 +255,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>DifferentialEquationCalc</sender>
+   <signal>computation_result(QString)</signal>
+   <receiver>textEdit_2</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DifferentialEquationCalc</receiver>
+   <slot>perform_computation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
+  <signal>computation_result(QString)</signal>
   <slot>set_order(int)</slot>
+  <slot>perform_computation()</slot>
  </slots>
 </ui>

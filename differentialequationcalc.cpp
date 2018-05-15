@@ -45,4 +45,14 @@ void DifferentialEquationCalc::set_order(int n) const {
 
 void DifferentialEquationCalc::perform_computation() const {
     Symbolic x("x");
+    Symbolic y("y");
+    Symbolic z = x + y;
+
+    std::stringstream s;
+    s << z;
+
+    std::string ss = s.str();
+    QString result = QString::fromStdString(ss);
+
+    emit computation_result(result);
 }
