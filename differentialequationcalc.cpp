@@ -45,15 +45,24 @@ void DifferentialEquationCalc::set_order(int n) const {
 }
 
 void DifferentialEquationCalc::perform_computation() const {
-    Symbolic x("x");
+    // Create the left hand side of the equation
     Symbolic y("y");
-    Symbolic z = x + y;
+    y = ui->doubleSpinBox_3->value() * y;
+    Symbolic dy("y'");
+    dy = ui->doubleSpinBox_2->value() * dy;
+    Symbolic ddy("y''");
+    ddy = ui->doubleSpinBox->value() * ddy;
+    Symbolic lhs;
+    lhs = ddy + dy + y;
 
+    // Pipe the equation to a string stream
     std::stringstream s;
-    s << z;
+    s << lhs;
 
+    // Convert the string stream to a string, and convert the string to a QString
     std::string ss = s.str();
     QString result = QString::fromStdString(ss);
 
+    // Send signal with results
     emit computation_result(result);
 }
