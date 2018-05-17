@@ -32,3 +32,5 @@ HEADERS += \
 
 FORMS += \
         differentialequationcalc.ui
+
+INCLUDEPATH += $$PWD/lib/symbolicc++/headers

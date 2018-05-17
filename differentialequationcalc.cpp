@@ -1,5 +1,6 @@
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
+#include "symbolicc++.h"
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),

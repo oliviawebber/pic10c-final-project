@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <sstream>
 #include <string>
-#include "lib/headers/symbolicc++.h"
 
 namespace Ui {
 class DifferentialEquationCalc;
