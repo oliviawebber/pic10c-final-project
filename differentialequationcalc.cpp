@@ -1,7 +1,5 @@
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
-#include <ginac/ginac.h>
-using namespace GiNaC;
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),
@@ -46,22 +44,10 @@ void DifferentialEquationCalc::set_order(int n) const {
 }
 
 void DifferentialEquationCalc::perform_computation() const {
-    double y_coefficient = ui->doubleSpinBox_3->value();
-    double dy_coefficient = ui->doubleSpinBox_2->value();
-    double ddy_coefficient = ui->doubleSpinBox->value();
+    double y_coefficient (ui->doubleSpinBox_3->value());
+    double dy_coefficient (ui->doubleSpinBox_2->value());
+    double ddy_coefficient (ui->doubleSpinBox->value());
 
-    symbol x("x");
-    ex poly;
-
-    poly += (ddy_coefficient*pow(x,2) + dy_coefficient*x + y_coefficient);
-
-    // Pipe the Symbolic to a string stream
-    std::stringstream s;
-    s << poly;
-
-    // Convert the string stream to a string, and convert the string to a QString
-    std::string ss = s.str();
-    QString result = QString::fromStdString(ss);
 
     // Send signal with results
     emit computation_result(result);

@@ -32,13 +32,3 @@ HEADERS += \
 
 FORMS += \
         differentialequationcalc.ui
-
-INCLUDEPATH += \
-        $$PWD/lib/cln/include \
-        $$PWD/lib/ginac/include \
-
-LIBS += \
-        -L$$PWD/lib/cln/lib \
-        -L$$PWD/lib/ginac/lib \
-        -lcln \
-        -lginac \
