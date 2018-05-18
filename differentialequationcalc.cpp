@@ -1,3 +1,4 @@
+#include <Python.h>
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
 
@@ -48,7 +49,18 @@ void DifferentialEquationCalc::perform_computation() const {
     double dy_coefficient (ui->doubleSpinBox_2->value());
     double ddy_coefficient (ui->doubleSpinBox->value());
 
+    Py_Initialize();
+    PyObject* pName = PyUnicode_DecodeFSDefault("./diff_eq_solver.py");
+    PyObject* pModule = PyImport_Import(pName);
+    PyObject* pFunc = PyObject_GetAttrString(pModule, "main");
+    PyObject_CallObject(pFunc, nullptr);
+
+    Py_DECREF (pName);
+    Py_DECREF (pModule);
+    Py_DECREF (pFunc);
+    Py_Finalize();
+
 
     // Send signal with results
-    emit computation_result(result);
+    //emit computation_result(result);
 }

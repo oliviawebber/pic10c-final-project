@@ -32,3 +32,13 @@ HEADERS += \
 
 FORMS += \
         differentialequationcalc.ui
+
+INCLUDEPATH += \
+        /usr/include/python3.5m
+        /usr/include/x86_64-linux-gnu/python3.5m
+
+LIBS += \
+        -lpython3.5m
+
+DISTFILES += \
+    diff_eq_solver.py
