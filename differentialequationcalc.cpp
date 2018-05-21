@@ -1,6 +1,7 @@
 #include <Python.h>
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
+#include <iostream>
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),
@@ -45,22 +46,38 @@ void DifferentialEquationCalc::set_order(int n) const {
 }
 
 void DifferentialEquationCalc::perform_computation() const {
-    double y_coefficient (ui->doubleSpinBox_3->value());
-    double dy_coefficient (ui->doubleSpinBox_2->value());
-    double ddy_coefficient (ui->doubleSpinBox->value());
+    double x_initial = 0;
+    double y_initial = 0;
+    int width = 0;
+    int height = 0;
+    double step_size = 0;
 
     Py_Initialize();
-    PyObject* pName = PyUnicode_DecodeFSDefault("./diff_eq_solver.py");
-    PyObject* pModule = PyImport_Import(pName);
-    PyObject* pFunc = PyObject_GetAttrString(pModule, "main");
-    PyObject_CallObject(pFunc, nullptr);
+    //PyObject* module_name_string = PyUnicode_FromString("diff_eq_solver");
 
-    Py_DECREF (pName);
-    Py_DECREF (pModule);
-    Py_DECREF (pFunc);
+    QString path = QDir::currentPath();
+
+    PyObject* module = PyImport_ImportModule("diff_eq_solver.py");
+    PyErr_Print();
+    /*
+    PyObject* function = PyObject_GetAttrString(module, "solve");
+    std::cout << "Step 3\n";
+
+    PyObject* arglist = PyTuple_Pack(5, x_initial, y_initial, width, height, step_size);
+    std::cout << "Step 4\n";
+
+    PyObject* python_result = PyObject_CallObject(function, arglist);
+    std::cout << "Step 5\n";
+
+    long int size;
+    const char* cpp_result = PyUnicode_AsUTF8AndSize(python_result, &size);
+    std::cout << "Step 6\n";
+
+    QString result = QString::fromUtf8(cpp_result);
+    std::cout << "Step 7\n";
     Py_Finalize();
 
 
     // Send signal with results
-    //emit computation_result(result);
+    emit computation_result(result);*/
 }
