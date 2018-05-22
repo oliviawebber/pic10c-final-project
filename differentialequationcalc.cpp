@@ -64,10 +64,11 @@ void DifferentialEquationCalc::perform_computation() const {
 
     PyObject* arglist = Py_BuildValue("ddiid", x_initial, y_initial, width, height, step_size);
     PyErr_Print();
-/*
+
     PyObject* python_result = PyObject_CallObject(function, arglist);
     std::cout << "Step 5\n";
 
+    PyErr_Print(); /*
     long int size;
     const char* cpp_result = PyUnicode_AsUTF8AndSize(python_result, &size);
     std::cout << "Step 6\n";
