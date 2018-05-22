@@ -1,6 +1,1 @@
-lib/SymbolicC++3-3.35.tar.gz
-lib/symbolicc++/ChangeLog
-lib/symbolicc++/doc
-lib/symbolicc++/examples
-lib/symbolicc++/lisp
-lib/symbolicc++/othercas
+__pycache__/
