@@ -45,7 +45,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEdit_3"/>
+      <widget class="QTextEdit" name="textEdit_3">
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -106,7 +110,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="forcing_term"/>
+      <widget class="QTextEdit" name="forcing_term">
+       <property name="placeholderText">
+        <string>0</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
