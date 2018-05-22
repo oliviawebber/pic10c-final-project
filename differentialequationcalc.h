@@ -21,7 +21,6 @@ private:
     Ui::DifferentialEquationCalc *ui;
 
 private slots:
-    void set_order(int) const;
     void perform_computation() const;
 
 signals:
