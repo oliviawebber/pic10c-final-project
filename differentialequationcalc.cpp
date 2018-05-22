@@ -2,6 +2,7 @@
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
 #include <iostream>
+#include <QDir>
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),
@@ -53,19 +54,17 @@ void DifferentialEquationCalc::perform_computation() const {
     double step_size = 0;
 
     Py_Initialize();
-    //PyObject* module_name_string = PyUnicode_FromString("diff_eq_solver");
+    PyObject* sysPath = PySys_GetObject((char*)"path");
+    PyList_Append(sysPath, PyUnicode_FromString("./../pic10c-final-project"));
+    PyObject* name = PyUnicode_DecodeFSDefault("diff_eq_solver");
 
-    QString path = QDir::currentPath();
+    PyObject* module = PyImport_Import(name);
 
-    PyObject* module = PyImport_ImportModule("diff_eq_solver.py");
-    PyErr_Print();
-    /*
     PyObject* function = PyObject_GetAttrString(module, "solve");
-    std::cout << "Step 3\n";
 
-    PyObject* arglist = PyTuple_Pack(5, x_initial, y_initial, width, height, step_size);
-    std::cout << "Step 4\n";
-
+    PyObject* arglist = Py_BuildValue("ddiid", x_initial, y_initial, width, height, step_size);
+    PyErr_Print();
+/*
     PyObject* python_result = PyObject_CallObject(function, arglist);
     std::cout << "Step 5\n";
 
