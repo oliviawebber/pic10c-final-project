@@ -53,26 +53,52 @@ void DifferentialEquationCalc::perform_computation() const {
     int height = 0;
     double step_size = 0;
 
+    // Start the python interpreter
     Py_Initialize();
+
+    // Append directory with the python file to system path
+    // Qt builds to directory in following structure
+    // /parent
+    //   |--build/
+    //     |--executable
+    //   |--pic10c-final-project/
+    //     |--diff_eq_solver
+    // so to properly find final need to go up from build folder and then down into final project folder
     PyObject* sysPath = PySys_GetObject((char*)"path");
     PyList_Append(sysPath, PyUnicode_FromString("./../pic10c-final-project"));
     PyObject* name = PyUnicode_DecodeFSDefault("diff_eq_solver");
 
+    // Import the module
     PyObject* module = PyImport_Import(name);
 
+    // name is now no longer needed so decrement it so it does not leak
+    //Py_DecRef(name);
+
+    // Get the function solve from the module
     PyObject* function = PyObject_GetAttrString(module, "solve");
 
+    // module no longer needed so decrement
+    Py_DecRef(module);
+
+    // Build the agrument list which should be of the form (double, double, int, int, double)
     PyObject* arglist = Py_BuildValue("ddiid", x_initial, y_initial, width, height, step_size);
-    PyErr_Print();
 
+    // Call the function with the constructed argument list
     PyObject* python_result = PyObject_CallObject(function, arglist);
-    std::cout << "Step 5\n";
 
+    // arglist and function are now both done so decrement
+    Py_DecRef(function);
+    Py_DecRef(arglist);
+
+    // Process the return value into a form usable by Qt
     long int size;
     const char* cpp_result = PyUnicode_AsUTF8AndSize(python_result, &size);
-
     QString result = QString::fromUtf8(cpp_result);
-    std::cout << "Step 7\n";
+
+    // Result is processed to decrement
+    //Py_DecRef(python_result);
+
+    // End the python interpreter
     Py_Finalize();
 
     // Send signal with results
