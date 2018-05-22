@@ -68,16 +68,13 @@ void DifferentialEquationCalc::perform_computation() const {
     PyObject* python_result = PyObject_CallObject(function, arglist);
     std::cout << "Step 5\n";
 
-    PyErr_Print(); /*
     long int size;
     const char* cpp_result = PyUnicode_AsUTF8AndSize(python_result, &size);
-    std::cout << "Step 6\n";
 
     QString result = QString::fromUtf8(cpp_result);
     std::cout << "Step 7\n";
     Py_Finalize();
 
-
     // Send signal with results
-    emit computation_result(result);*/
+    emit computation_result(result);
 }
