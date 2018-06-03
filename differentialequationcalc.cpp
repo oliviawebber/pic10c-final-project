@@ -27,9 +27,9 @@ void DifferentialEquationCalc::perform_computation() const {
     QByteArray array_forcing_term = qt_forcing_term.toUtf8();
     char* forcing_term = array_forcing_term.data();
 
-    int width = 0;
-    int height = 0;
-    double step_size = 0;
+    int width = 10;
+    int height = 10;
+    double step_size = 0.1;
 
     // Start the python interpreter
     Py_Initialize();
@@ -62,23 +62,37 @@ void DifferentialEquationCalc::perform_computation() const {
     PyObject* arglist = Py_BuildValue("ddiids", x_initial, y_initial, width, height, step_size, forcing_term);
 
     // Call the function with the constructed argument list
-    PyObject* python_result = PyObject_CallObject(function, arglist);
+    PyObject* list_result = PyObject_CallObject(function, arglist);
 
     // arglist and function are now both done so decrement
     Py_DecRef(function);
     Py_DecRef(arglist);
 
-    // Process the return value into a form usable by Qt
-    long int size;
-    const char* cpp_result = PyUnicode_AsUTF8AndSize(python_result, &size);
-    QString result = QString::fromUtf8(cpp_result);
-
-    // Result is processed to decrement
-    //Py_DecRef(python_result);
+    QVector<double> x_coordinates;
+    QVector<double> y_coordinates;
+    Py_ssize_t midpoint = PyList_Size(list_result)/2;
+    for(Py_ssize_t i = 0; i < PyList_Size(list_result); ++i) {
+        PyObject* value = PyList_GetItem(list_result, i);
+        if(i < midpoint)
+            x_coordinates.push_back(PyFloat_AsDouble(value));
+        else
+            y_coordinates.push_back(PyFloat_AsDouble(value));
+    }
 
     // End the python interpreter
     Py_Finalize();
 
+    // create graph and assign data to it:
+    ui->customPlot->addGraph();
+    ui->customPlot->graph(0)->setData(x_coordinates, y_coordinates);
+    // give the axes some labels:
+    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->yAxis->setLabel("y");
+    // set axes ranges, so we see all data:
+    ui->customPlot->xAxis->setRange(0, width);
+    ui->customPlot->yAxis->setRange(-height, height);
+    ui->customPlot->replot();
+
     // Send signal with results
-    emit computation_result(result);
+    //emit computation_result(result);
 }

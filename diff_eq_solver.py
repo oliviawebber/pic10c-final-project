@@ -39,12 +39,6 @@ def solve(x_inital, y_initial, width, height, step_size, c_forcing_term):
     while len(x_coords) is not len(y_coords):
         x_coords.pop()
 
-    plt.plot(x_coords, y_coords)
-    plt.ylim(ymax = height)
-    plt.ylim(ymin = -height)
-    plt.show()
+    return (x_coords + y_coords)
 
-    return "It worked"
-
-
-solve(0, 1, 10, 10, 0.1, "y**2")
+# solve(0, 1, 10, 10, 0.1, "y**2")
