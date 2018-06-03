@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = pic10c-final-project
 TEMPLATE = app
@@ -25,10 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        differentialequationcalc.cpp
+        differentialequationcalc.cpp \
+        qcustomplot.cpp
 
 HEADERS += \
-        differentialequationcalc.h
+        differentialequationcalc.h \
+        qcustomplot.h
 
 FORMS += \
         differentialequationcalc.ui

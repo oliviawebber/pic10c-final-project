@@ -50,13 +50,13 @@ void DifferentialEquationCalc::perform_computation() const {
     PyObject* module = PyImport_Import(name);
 
     // name is now no longer needed so decrement it so it does not leak
-    //Py_DecRef(name);
+    Py_DECREF(name);
 
     // Get the function solve from the module
     PyObject* function = PyObject_GetAttrString(module, "solve");
 
     // module no longer needed so decrement
-    Py_DecRef(module);
+    Py_DECREF(module);
 
     // Build the agrument list which should be of the form (double, double, int, int, double)
     PyObject* arglist = Py_BuildValue("ddiids", x_initial, y_initial, width, height, step_size, forcing_term);
@@ -65,8 +65,8 @@ void DifferentialEquationCalc::perform_computation() const {
     PyObject* list_result = PyObject_CallObject(function, arglist);
 
     // arglist and function are now both done so decrement
-    Py_DecRef(function);
-    Py_DecRef(arglist);
+    Py_DECREF(function);
+    Py_DECREF(arglist);
 
     QVector<double> x_coordinates;
     QVector<double> y_coordinates;
@@ -78,6 +78,9 @@ void DifferentialEquationCalc::perform_computation() const {
         else
             y_coordinates.push_back(PyFloat_AsDouble(value));
     }
+
+    // Cleanup python references
+    Py_DECREF(list_result);
 
     // End the python interpreter
     Py_Finalize();
