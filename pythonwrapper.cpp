@@ -4,18 +4,20 @@ PythonWrapper::PythonWrapper(char* p_folder, char* p_py_file, char* p_func_name)
     Py_Initialize();
     syspath = PySys_GetObject((char*)"path");
 
-    char folder_path_front [] = "./../";
+    char folder_path_front [50] = "./../";
     PyList_Append(syspath, PyUnicode_FromString(std::strcat(folder_path_front, p_folder)));
 
-    func_name = PyUnicode_DecodeFSDefault(p_func_name);
+    func_name = PyUnicode_DecodeFSDefault(p_py_file);
 
     module = PyImport_Import(func_name);
+
+    function = PyObject_GetAttrString(module, p_func_name);
 }
 
 QVector< QVector <double> > PythonWrapper::call_function(double x_initial, double y_initial, int width, int height, double step_size, char* forcing_term) {
     arglist = Py_BuildValue("ddiids", x_initial, y_initial, width, height, step_size, forcing_term);
 
-    list_result = PyObject_CallObject(func_name, arglist);
+    list_result = PyObject_CallObject(function, arglist);
 
     QVector<double> x_coordinates;
     QVector<double> y_coordinates;
@@ -43,17 +45,14 @@ QVector< QVector <double> > PythonWrapper::call_function(double x_initial, doubl
 }
 
 PythonWrapper::~PythonWrapper() {
+    while (Py_REFCNT(function) != 0)
+        Py_XDECREF(function);
+
     while (Py_REFCNT(module) != 0)
         Py_XDECREF(module);
 
     while (Py_REFCNT(func_name) != 0)
         Py_XDECREF(func_name);
-
-    while (Py_REFCNT(py_file) != 0)
-        Py_XDECREF(py_file);
-
-    while (Py_REFCNT(folder) != 0)
-        Py_XDECREF(folder);
 
     while (Py_REFCNT(syspath) != 0)
         Py_XDECREF(syspath);

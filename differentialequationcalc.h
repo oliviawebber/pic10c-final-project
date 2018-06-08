@@ -1,6 +1,6 @@
 #ifndef DIFFERENTIALEQUATIONCALC_H
 #define DIFFERENTIALEQUATIONCALC_H
-
+#include "pythonwrapper.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::DifferentialEquationCalc *ui;
+    mutable PythonWrapper pw;
 
 private slots:
     void perform_computation() const;

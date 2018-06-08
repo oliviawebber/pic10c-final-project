@@ -1,11 +1,11 @@
-#include "pythonwrapper.h" // This
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
 
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::DifferentialEquationCalc)
+    ui(new Ui::DifferentialEquationCalc),
+    pw("pic10c-final-project", "diff_eq_solver", "solve")
 {
     ui->setupUi(this);
 }
@@ -30,11 +30,6 @@ void DifferentialEquationCalc::perform_computation() const {
     int height = 10;
     double step_size = 0.1;
 
-    char folder [] = "pic10c-final-project";
-    char file [] = "diff_eq_solver";
-    char func [] = "solve";
-
-    PythonWrapper pw(folder, file, func);
     QVector< QVector<double> > result = pw.call_function(x_initial, y_initial, width, height, step_size, forcing_term);
 
 
