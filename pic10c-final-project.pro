@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         differentialequationcalc.cpp \
-        qcustomplot.cpp
+        qcustomplot.cpp \
+    pythonwrapper.cpp
 
 HEADERS += \
         differentialequationcalc.h \
-        qcustomplot.h
+        qcustomplot.h \
+    pythonwrapper.h
 
 FORMS += \
         differentialequationcalc.ui

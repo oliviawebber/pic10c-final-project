@@ -2,8 +2,6 @@
 #define DIFFERENTIALEQUATIONCALC_H
 
 #include <QMainWindow>
-#include <sstream>
-#include <string>
 
 namespace Ui {
 class DifferentialEquationCalc;

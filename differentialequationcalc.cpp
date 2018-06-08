@@ -1,8 +1,7 @@
-#include <Python.h>
+#include "pythonwrapper.h" // This
 #include "differentialequationcalc.h"
 #include "ui_differentialequationcalc.h"
-#include <iostream>
-#include <QDir>
+
 
 DifferentialEquationCalc::DifferentialEquationCalc(QWidget *parent) :
     QMainWindow(parent),
@@ -31,63 +30,17 @@ void DifferentialEquationCalc::perform_computation() const {
     int height = 10;
     double step_size = 0.1;
 
-    // Start the python interpreter
-    Py_Initialize();
+    char folder [] = "pic10c-final-project";
+    char file [] = "diff_eq_solver";
+    char func [] = "solve";
 
-    // Append directory with the python file to system path
-    // Qt builds to directory in following structure
-    // /parent
-    //   |--build/
-    //     |--executable
-    //   |--pic10c-final-project/
-    //     |--diff_eq_solver
-    // so to properly find final need to go up from build folder and then down into final project folder
-    PyObject* sysPath = PySys_GetObject((char*)"path");
-    PyList_Append(sysPath, PyUnicode_FromString("./../pic10c-final-project"));
-    PyObject* name = PyUnicode_DecodeFSDefault("diff_eq_solver");
+    PythonWrapper pw(folder, file, func);
+    QVector< QVector<double> > result = pw.call_function(x_initial, y_initial, width, height, step_size, forcing_term);
 
-    // Import the module
-    PyObject* module = PyImport_Import(name);
-
-    // name is now no longer needed so decrement it so it does not leak
-    Py_DECREF(name);
-
-    // Get the function solve from the module
-    PyObject* function = PyObject_GetAttrString(module, "solve");
-
-    // module no longer needed so decrement
-    Py_DECREF(module);
-
-    // Build the agrument list which should be of the form (double, double, int, int, double)
-    PyObject* arglist = Py_BuildValue("ddiids", x_initial, y_initial, width, height, step_size, forcing_term);
-
-    // Call the function with the constructed argument list
-    PyObject* list_result = PyObject_CallObject(function, arglist);
-
-    // arglist and function are now both done so decrement
-    Py_DECREF(function);
-    Py_DECREF(arglist);
-
-    QVector<double> x_coordinates;
-    QVector<double> y_coordinates;
-    Py_ssize_t midpoint = PyList_Size(list_result)/2;
-    for(Py_ssize_t i = 0; i < PyList_Size(list_result); ++i) {
-        PyObject* value = PyList_GetItem(list_result, i);
-        if(i < midpoint)
-            x_coordinates.push_back(PyFloat_AsDouble(value));
-        else
-            y_coordinates.push_back(PyFloat_AsDouble(value));
-    }
-
-    // Cleanup python references
-    Py_DECREF(list_result);
-
-    // End the python interpreter
-    Py_Finalize();
 
     // create graph and assign data to it:
     ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x_coordinates, y_coordinates);
+    ui->customPlot->graph(0)->setData(result[0], result[1]);
     // give the axes some labels:
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
