@@ -21,9 +21,6 @@ private:
 
 private slots:
     void perform_computation() const;
-
-signals:
-    void computation_result(QString) const;
 };
 
 #endif // DIFFERENTIALEQUATIONCALC_H

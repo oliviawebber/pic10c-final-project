@@ -8,8 +8,6 @@ def solve(x_inital, y_initial, width, height, step_size, c_forcing_term):
     from sympy.parsing.sympy_parser import parse_expr
     from sympy import lambdify
     from sympy.abc import y, t
-    import matplotlib.pyplot as plt
-
 
     # Create a sympy expression based on the input recieved
     forcing_term = parse_expr(c_forcing_term)
@@ -18,13 +16,14 @@ def solve(x_inital, y_initial, width, height, step_size, c_forcing_term):
     f = lambdify((y, t) , forcing_term)
 
     # Create x-coordinates
+    # Currently only forward time solutions are constructed
     x_coords = []
     x_value = x_inital
     while x_value <= width:
         x_coords.append(x_value)
         x_value += step_size
 
-    # Create positive y-coordinates
+    # Create y-coordinates
     y_coords = []
     y_n = y_initial
     for i in range(len(x_coords)):

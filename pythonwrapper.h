@@ -8,7 +8,7 @@ class PythonWrapper
 {
 private:
     PyObject* syspath;
-    PyObject* func_name;
+    PyObject* file_name;
     PyObject* module;
     PyObject* function;
     PyObject* arglist;
