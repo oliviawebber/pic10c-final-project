@@ -37,7 +37,7 @@ void DifferentialEquationCalc::perform_computation() const {
     ui->customPlot->addGraph();
     ui->customPlot->graph(0)->setData(result[0], result[1]);
     // give the axes some labels:
-    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->xAxis->setLabel("t");
     ui->customPlot->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
     ui->customPlot->xAxis->setRange(0, width);

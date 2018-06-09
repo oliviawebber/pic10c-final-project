@@ -42,5 +42,3 @@ def solve(x_inital, y_initial, width, height, step_size, c_forcing_term):
         y_coords.pop()
 
     return (x_coords + y_coords)
-
-solve(0, 1, 10, 10, 0.01, "y")
