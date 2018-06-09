@@ -26,9 +26,9 @@ void DifferentialEquationCalc::perform_computation() const {
     QByteArray array_forcing_term = qt_forcing_term.toUtf8();
     char* forcing_term = array_forcing_term.data();
 
-    int width = 10;//ui->spinBox->value();
-    int height = 10;//ui->spinBox_2->value();
-    double step_size = 0.01;//ui->doubleSpinBox->value();
+    int width = ui->spinBox->value();
+    int height = ui->spinBox_2->value();
+    double step_size = ui->doubleSpinBox->value();
 
     QVector< QVector<double> > result = pw.call_function(x_initial, y_initial, width, height, step_size, forcing_term);
 

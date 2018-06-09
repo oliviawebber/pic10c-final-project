@@ -36,9 +36,11 @@ def solve(x_inital, y_initial, width, height, step_size, c_forcing_term):
         y_n = y_n_p1
 
     # Check that x-coordinates and y-coordinates are the same size
-    while len(x_coords) is not len(y_coords):
+    while len(x_coords) > len(y_coords):
         x_coords.pop()
+    while len(y_coords) > len(x_coords):
+        y_coords.pop()
 
     return (x_coords + y_coords)
 
-# solve(0, 1, 10, 10, 0.1, "y**2")
+solve(0, 1, 10, 10, 0.01, "y")

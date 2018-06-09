@@ -1,6 +1,6 @@
 #include "pythonwrapper.h"
 
-PythonWrapper::PythonWrapper(char* p_folder, char* p_py_file, char* p_func_name) {
+PythonWrapper::PythonWrapper(const char* p_folder, const char* p_py_file, const char* p_func_name) {
     Py_Initialize();
     syspath = PySys_GetObject((char*)"path");
 

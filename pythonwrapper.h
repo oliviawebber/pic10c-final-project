@@ -15,7 +15,7 @@ private:
     PyObject* list_result;
 
 public:
-    PythonWrapper(char*, char*, char*);
+    PythonWrapper(const char*, const char*, const char*);
     QVector< QVector <double> > call_function(double, double, int, int, double, char*);
     ~PythonWrapper();
 };
