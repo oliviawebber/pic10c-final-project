@@ -30,3 +30,5 @@ A future addition to this project might be using a lambda function and generic a
 2. Python Interpreter
   2. [SymPy](http://www.sympy.org/en/index.html)
 
+### Link to Video
+[![Video Image](http://img.youtube.com/vi/46qvxTmSG0Q/0.jpg)](http://www.youtube.com/watch?v=46qvxTmSG0Q)
